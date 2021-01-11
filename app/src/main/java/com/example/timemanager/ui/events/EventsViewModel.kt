@@ -1,4 +1,4 @@
-package com.example.timemanager.ui.home
+package com.example.timemanager.ui.events
 
 import android.app.Application
 import android.graphics.Color
@@ -26,10 +26,8 @@ import com.github.mikephil.charting.data.PieEntry
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.*
 
-class HomeViewModel(application: Application) : AndroidViewModel(application) {
+class EventsViewModel(application: Application) : AndroidViewModel(application) {
 
     private val dao = Db.getDb(application.applicationContext).eventDao()
     private val saveEventTodayUseCase = SaveEventTodayUseCase()
@@ -157,7 +155,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         launchIo {
             launchForResult {
                 val listEventFromDb = loadEventTodayListUseCase
-                    .doWork(LoadEventTodayListUseCase.Params(MDate.date.value.toString(), dao))
+                    .doWork(LoadEventTodayListUseCase.Params("${MDate.date.value.toString().substringBefore(" ")}%", dao))
                 var temp = 1440
                 for (i in 0..11) {
                     listEventToday[i].timeSpent.postValue(listEventFromDb[i].timeSpent.value)
@@ -175,9 +173,9 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     fun loadScheduledTimeFromDb() {
         launchIo {
-            val dateForDb = MDate.date.value.toString().substringAfter("/")
+            val dateForDb = MDate.date.value.toString().substringAfter("/").substringBefore(" ")
             val listScheduledTimeFromDb = loadScheduledTimeListUseCase
-                .doWork(LoadScheduledTimeListUseCase.Params("%$dateForDb", dao))
+                .doWork(LoadScheduledTimeListUseCase.Params("%$dateForDb%", dao))
             listScheduledTimeFromDb.forEach {
                 listEventScheduledTime[it.id].timeSchedule.postValue(
                     it.timeSchedule.value?.div(

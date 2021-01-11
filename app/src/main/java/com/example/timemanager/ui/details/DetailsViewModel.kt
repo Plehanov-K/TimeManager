@@ -1,4 +1,4 @@
-package com.example.timemanager.ui.dashboard
+package com.example.timemanager.ui.details
 
 import android.app.Application
 import android.graphics.Color
@@ -15,10 +15,8 @@ import com.example.timemanager.data.MDate
 import com.example.timemanager.utils.launchForResult
 import com.example.timemanager.utils.launchIo
 import com.example.timemanager.utils.launchUi
-import java.text.SimpleDateFormat
-import java.util.*
 
-class DashboardViewModel(application: Application) : AndroidViewModel(application) {
+class DetailsViewModel(application: Application) : AndroidViewModel(application) {
 
     private val dao = Db.getDb(application.applicationContext).eventDao()
     private val loadEventInfoListUseCase = LoadEventInfoListUseCase()
@@ -41,7 +39,7 @@ class DashboardViewModel(application: Application) : AndroidViewModel(applicatio
         launchIo {
             launchForResult {
                 val list =
-                    loadEventInfoListUseCase.doWork(LoadEventInfoListUseCase.Params(MDate.date.value.toString(), dao))
+                    loadEventInfoListUseCase.doWork(LoadEventInfoListUseCase.Params("${MDate.date.value.toString().substringBefore(" ")}%", dao))
                 launchUi {
                     listEventInfo.postValue(list)
                     var temp = 1440

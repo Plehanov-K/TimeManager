@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shared.utils.parseTimeFromMinutes
 import com.example.timemanager.R
+import com.example.timemanager.data.CAL_MONTH
 import com.example.timemanager.data.MDate
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.fragment_chart.*
@@ -32,6 +33,7 @@ class ChartFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        MDate.tempTime = CAL_MONTH
         val totalTime = view.findViewById<TextView>(R.id.text_total_time)
         val chartAdapter = RecyclerChartAdapter(this)
         recycler_chart.adapter = chartAdapter
@@ -42,10 +44,9 @@ class ChartFragment : Fragment() {
         })
 
         viewModel.listChartInfo.observe(viewLifecycleOwner, Observer {
-            totalTime.text ="${MDate.dateM} : "+viewModel.totalTime.parseTimeFromMinutes()
+            totalTime.text =
+                getString(R.string.total_time) + viewModel.totalTime.parseTimeFromMinutes()
             chartAdapter.setEvents(it)
         })
     }
-
-
 }

@@ -1,4 +1,4 @@
-package com.example.timemanager.ui.notifications
+package com.example.timemanager.ui.planning
 
 import android.app.Application
 import android.graphics.Color
@@ -11,16 +11,13 @@ import com.example.shared.data.entity.event.EventScheduledInfoUi
 import com.example.shared.domain.events.scheduled.LoadScheduledTimeInfoListUseCase
 import com.example.shared.domain.events.scheduled.SaveScheduledTimeUseCase
 import com.example.shared.domain.events.scheduled.UpdateScheduledTimeUseCase
-import com.example.shared.utils.parseTimeFromMinutes
 import com.example.timemanager.data.BottomSheetParams
 import com.example.timemanager.data.MDate
 import com.example.timemanager.utils.launchForResult
 import com.example.timemanager.utils.launchIo
 import com.example.timemanager.utils.launchUi
-import java.text.SimpleDateFormat
-import java.util.*
 
-class NotificationsViewModel(application: Application) : AndroidViewModel(application) {
+class PlanningViewModel(application: Application) : AndroidViewModel(application) {
 
     private val loadScheduledTimeInfoListUseCase = LoadScheduledTimeInfoListUseCase()
     private val saveScheduledTimeUseCase = SaveScheduledTimeUseCase()
@@ -41,9 +38,10 @@ class NotificationsViewModel(application: Application) : AndroidViewModel(applic
     fun loadScheduledInfoList() {
         launchIo {
             launchForResult {
-                val dateMonth = MDate.date.value.toString().substringAfter("/")
+                val dateMonth = MDate.date.value.toString()
+                    .substringAfter("/").substringBefore(" ")
                 val tempList = loadScheduledTimeInfoListUseCase
-                    .doWork(LoadScheduledTimeInfoListUseCase.Params("%$dateMonth", dao))
+                    .doWork(LoadScheduledTimeInfoListUseCase.Params("%$dateMonth%", dao))
                 launchUi {
                     var tempTime = MDate.maxDayInMonth.times(1440)
                     tempList.forEach {

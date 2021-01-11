@@ -1,4 +1,4 @@
-package com.example.timemanager.ui.dashboard
+package com.example.timemanager.ui.details
 
 import android.graphics.Color
 import android.view.LayoutInflater
@@ -11,12 +11,12 @@ import com.example.shared.utils.parseTimeFromMinutes
 import com.example.timemanager.R
 import kotlinx.android.synthetic.main.item_event_info.view.*
 
-class RecyclerEventInfoAdapter(fragment: DashboardFragment) :
+class RecyclerEventInfoAdapter(fragment: DetailsFragment) :
     RecyclerView.Adapter<RecyclerEventInfoAdapter.EventViewHolder>() {
 
     private var events = emptyList<EventInfoUi>()
-    private val viewModel: DashboardViewModel =
-        ViewModelProvider(fragment).get(DashboardViewModel::class.java)
+    private val viewModel: DetailsViewModel =
+        ViewModelProvider(fragment).get(DetailsViewModel::class.java)
 
     fun setEvents(items: List<EventInfoUi>) {
         this.events = items
@@ -32,11 +32,12 @@ class RecyclerEventInfoAdapter(fragment: DashboardFragment) :
     }
 
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
-        holder.itemView.time_event_info.text = events[position].spentTime.parseTimeFromMinutes()
+        holder.itemView.time_spent_event_info.text =
+            events[position].spentTime.parseTimeFromMinutes()
         holder.itemView.icon_event_info.background.setTint(Color.parseColor(events[position].color))
         holder.itemView.name_event_info.text = events[position].name
         holder.itemView.description_event_info.text = events[position].description
-
+        holder.itemView.time_event_info.text = events[position].date.substringAfter(" ")
         holder.itemView.cardView.setOnClickListener {
             viewModel.openBottomSheet(position)
         }

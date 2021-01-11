@@ -26,9 +26,9 @@ class ChartViewModel(application: Application) : AndroidViewModel(application) {
     fun loadChartInfoList() {
         launchIo {
             var tempTotalTime = 0
-            val tempTimeMonth =MDate.date.value.toString().substringAfter("/")
+            val tempTimeMonth =MDate.date.value.toString().substringAfter("/").substringBefore(" ")
             val tempList = loadChartInfoListUseCase.doWork(
-                LoadChartInfoListUseCase.Params("%$tempTimeMonth", dao)
+                LoadChartInfoListUseCase.Params("%$tempTimeMonth%", dao)
             )
             tempList.forEach {
                 tempTotalTime += it.spentTime

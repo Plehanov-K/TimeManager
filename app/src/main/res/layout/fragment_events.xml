@@ -10,7 +10,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.timemanager.ui.home.HomeViewModel" />
+            type="com.example.timemanager.ui.events.EventsViewModel" />
 
         <variable
             name="list"
@@ -31,7 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/main"
-        tools:context=".ui.home.HomeFragment">
+        tools:context=".ui.events.EventsFragment">
 
         <LinearLayout
             android:layout_width="match_parent"
