@@ -4,21 +4,20 @@ import androidx.lifecycle.MutableLiveData
 import java.text.SimpleDateFormat
 import java.util.*
 
+const val CAL_DAY = Calendar.DATE
+const val CAL_MONTH = Calendar.MONTH
+
 object MDate {
-    private val sdfMonth = SimpleDateFormat("MMMM")
-    private val sdf = SimpleDateFormat("dd/MM/yyyy")
-    private var calendar = Calendar.getInstance()
-    private var mTimeInMillis = calendar.timeInMillis
-    val date = MutableLiveData(sdf.format(mTimeInMillis))
-    var dateM: String = sdfMonth.format(mTimeInMillis)
+    private val sdf = SimpleDateFormat("dd/MM/yyyy HH : mm : ss")
+    private var calendar = Calendar.getInstance(Locale.getDefault())
+    val date = MutableLiveData(sdf.format(calendar.timeInMillis))
     var maxDayInMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
+    var tempTime = Calendar.MONTH
 
 
-    fun setDate(time: Long) {
-        mTimeInMillis = mTimeInMillis.plus(time)
-        date.postValue(sdf.format(mTimeInMillis))
-        dateM = sdfMonth.format(mTimeInMillis)
-        calendar.timeInMillis = mTimeInMillis
+    fun setDate(time: Int) {
+        calendar.add(tempTime,time)
+        date.postValue(sdf.format(calendar.timeInMillis))
         maxDayInMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
     }
 }

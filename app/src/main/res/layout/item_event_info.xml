@@ -54,7 +54,7 @@
             android:textColor="@color/white"
             android:textStyle="italic"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/time_event_info"
+            app:layout_constraintEnd_toStartOf="@+id/time_spent_event_info"
             app:layout_constraintStart_toEndOf="@+id/icon_event_info"
             app:layout_constraintTop_toBottomOf="@+id/name_event_info"
             tool:text="прогулка с сыном на велосипеде" />
@@ -63,12 +63,26 @@
             android:id="@+id/time_event_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_margin="10dp"
             android:textColor="@color/white"
+            android:textSize="11dp"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tool:text="12 : 00 : 00" />
+
+        <TextView
+            android:id="@+id/time_spent_event_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+
+            android:textColor="@color/center"
             android:textSize="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/time_event_info"
+            app:layout_constraintVertical_bias="0.511"
             tool:text="12:00" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

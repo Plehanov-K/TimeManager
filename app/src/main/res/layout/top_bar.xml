@@ -32,7 +32,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="date"
-                android:textColor="@color/white"
+                android:textColor="@android:color/white"
                 android:textSize="22sp"
                 android:layout_centerInParent="true"/>
 

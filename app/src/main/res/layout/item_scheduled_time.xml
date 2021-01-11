@@ -27,24 +27,22 @@
             android:id="@+id/name_scheduled_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
+            android:layout_margin="8dp"
             android:textColor="@color/white"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/icon_scheduled_time"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
             tool:text="Отдых" />
 
         <FrameLayout
             android:id="@+id/progress_scheduled_time_frame"
             android:layout_width="0dp"
             android:layout_height="6dp"
-            android:layout_marginBottom="2dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="6dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginBottom="2dp"
             android:background="@drawable/item_button_shape"
-            app:layout_constraintBottom_toTopOf="@+id/time_spent_scheduled_time_item"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/icon_scheduled_time"
             app:layout_constraintTop_toBottomOf="@+id/name_scheduled_time">
@@ -88,30 +86,48 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="7dp"
             android:text="12:00"
             android:textColor="@android:color/white"
-            android:textSize="14dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/icon_scheduled_time" />
+            android:textSize="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/textView"
+            app:layout_constraintStart_toEndOf="@+id/icon_scheduled_time"
+            app:layout_constraintTop_toBottomOf="@+id/progress_scheduled_time_frame" />
 
         <TextView
             android:id="@+id/scheduled_time_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="7dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="4dp"
-            android:textColor="@color/white"
-            android:textSize="16dp"
+            android:layout_marginBottom="6dp"
+            android:textColor="@color/l"
+            android:textSize="15dp"
             app:layout_constraintBottom_toTopOf="@+id/progress_scheduled_time_frame"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
             tool:text="12:00" />
 
+
         <TextView
+            android:id="@+id/time_difference_time_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="7dp"
+            android:background="@color/main"
+            android:text="12 : 00"
+            android:textColor="@color/white"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/textView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/progress_scheduled_time_frame" />
+
+        <TextView
+            android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:background="#4FFFFFFF"

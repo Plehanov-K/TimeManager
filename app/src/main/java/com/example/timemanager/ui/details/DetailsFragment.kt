@@ -1,4 +1,4 @@
-package com.example.timemanager.ui.dashboard
+package com.example.timemanager.ui.details
 
 import android.os.Bundle
 import android.view.*
@@ -11,12 +11,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shared.utils.parseTimeFromMinutes
 import com.example.timemanager.R
+import com.example.timemanager.data.CAL_DAY
+import com.example.timemanager.data.CAL_MONTH
 import com.example.timemanager.data.MDate
 import com.example.timemanager.utils.showAlert
-import kotlinx.android.synthetic.main.fragment_dashboard.*
+import kotlinx.android.synthetic.main.fragment_details.*
 
-class DashboardFragment : Fragment() {
-    private lateinit var dashboardViewModel: DashboardViewModel
+class DetailsFragment : Fragment() {
+    private lateinit var detailsViewModel: DetailsViewModel
 
 
     override fun onCreateView(
@@ -24,26 +26,26 @@ class DashboardFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        dashboardViewModel =
-            ViewModelProvider(this).get(DashboardViewModel::class.java)
-        return inflater.inflate(R.layout.fragment_dashboard, container, false)
+        detailsViewModel =
+            ViewModelProvider(this).get(DetailsViewModel::class.java)
+        return inflater.inflate(R.layout.fragment_details, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        MDate.tempTime = CAL_DAY
         val eventAdapter = RecyclerEventInfoAdapter(this)
         recycler_view_event.adapter = eventAdapter
         recycler_view_event.layoutManager = LinearLayoutManager(context)
         MDate.date.observe(viewLifecycleOwner, Observer {
-            dashboardViewModel.loadEventTodayFromDb()
+            detailsViewModel.loadEventTodayFromDb()
         })
-        dashboardViewModel.listEventInfo.observe(viewLifecycleOwner, Observer {
+        detailsViewModel.listEventInfo.observe(viewLifecycleOwner, Observer {
             eventAdapter.setEvents(it)
         })
 
 
-        dashboardViewModel.tempEvent.observe(viewLifecycleOwner, Observer {
+        detailsViewModel.tempEvent.observe(viewLifecycleOwner, Observer {
 
             val inflater: LayoutInflater = LayoutInflater.from(activity)
             val customView: View = inflater.inflate(R.layout.alert_view_edit_time, null)
@@ -53,7 +55,7 @@ class DashboardFragment : Fragment() {
             timePicker.setIs24HourView(true)
             val titleAlert = customView.findViewById<TextView>(R.id.title_alert_view_delete)
             val freeTimeTextView = customView.findViewById<TextView>(R.id.time_alert_view_delete)
-            val freeTime = dashboardViewModel.dayTimeInMinutes
+            val freeTime = detailsViewModel.dayTimeInMinutes
 
             titleAlert.text = it.name
             titleAlert.setBackgroundColor(it.color)
@@ -72,7 +74,7 @@ class DashboardFragment : Fragment() {
                         title = getString(R.string.delete_event),
                         theme = R.style.ColorPickerDialogTheme,
                         positiveButtonFun = {
-                            dashboardViewModel.deleteEventFromDb(id = it.idDb)
+                            detailsViewModel.deleteEventFromDb(id = it.idDb)
                         }
                     )
                 },
@@ -82,7 +84,7 @@ class DashboardFragment : Fragment() {
                             title = getString(R.string.change_event),
                             theme = R.style.ColorPickerDialogTheme,
                             positiveButtonFun = {
-                                dashboardViewModel.updateEventFromDb(
+                                detailsViewModel.updateEventFromDb(
                                     id = it.idDb,
                                     time = timePicker.currentHour.times(60)
                                         .plus(timePicker.currentMinute),

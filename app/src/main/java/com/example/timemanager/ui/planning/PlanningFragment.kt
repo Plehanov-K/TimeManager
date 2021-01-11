@@ -1,4 +1,4 @@
-package com.example.timemanager.ui.notifications
+package com.example.timemanager.ui.planning
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -12,50 +12,47 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shared.utils.parseTimeFromMinutes
 import com.example.timemanager.R
+import com.example.timemanager.data.CAL_MONTH
 import com.example.timemanager.data.MDate
-import com.example.timemanager.ui.dashboard.RecyclerEventInfoAdapter
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import kotlinx.android.synthetic.main.alert_view_scheduled_time.*
-import kotlinx.android.synthetic.main.fragment_dashboard.*
-import kotlinx.android.synthetic.main.fragment_dashboard.recycler_view_event
-import kotlinx.android.synthetic.main.fragment_notifications.*
-import java.util.*
+import kotlinx.android.synthetic.main.fragment_planning.*
 
-class NotificationsFragment : Fragment() {
+class PlanningFragment : Fragment() {
 
-    private lateinit var notificationsViewModel: NotificationsViewModel
+    private lateinit var planningViewModel: PlanningViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        notificationsViewModel =
-            ViewModelProvider(this).get(NotificationsViewModel::class.java)
-        return inflater.inflate(R.layout.fragment_notifications, container, false)
+        planningViewModel =
+            ViewModelProvider(this).get(PlanningViewModel::class.java)
+        return inflater.inflate(R.layout.fragment_planning, container, false)
     }
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        MDate.tempTime = CAL_MONTH
         val totalTime = view.findViewById<TextView>(R.id.text_total_time_scheduled)
         val scheduledAdapter = RecyclerScheduledTimeAdapter(this)
         recycler_scheduled_time.adapter = scheduledAdapter
         recycler_scheduled_time.layoutManager = LinearLayoutManager(context)
-        notificationsViewModel.listScheduledInfo.observe(viewLifecycleOwner, Observer {
+        planningViewModel.listScheduledInfo.observe(viewLifecycleOwner, Observer {
             scheduledAdapter.setEvents(it)
-            totalTime.text = getString(R.string.total_time)+" " + MDate.dateM + " " +
-                    notificationsViewModel.totalTimeMonth.parseTimeFromMinutes()
+            totalTime.text = getString(R.string.total_time)+
+                    planningViewModel.totalTimeMonth.parseTimeFromMinutes()
         })
 
         MDate.date.observe(viewLifecycleOwner, Observer {
-            notificationsViewModel.loadScheduledInfoList()
-            totalTime.text = getString(R.string.total_time) + MDate.dateM + " : " +
-                    notificationsViewModel.totalTimeMonth.parseTimeFromMinutes()
+            planningViewModel.loadScheduledInfoList()
+            totalTime.text = getString(R.string.total_time)+
+                    planningViewModel.totalTimeMonth.parseTimeFromMinutes()
         })
 
         val inflater = LayoutInflater.from(activity)
-        notificationsViewModel.tempEvent.observe(viewLifecycleOwner, Observer { tempEvent ->
+        planningViewModel.tempEvent.observe(viewLifecycleOwner, Observer { tempEvent ->
             val alertView: View = inflater.inflate(R.layout.alert_view_scheduled_time, null)
             val timePicker =
                 alertView.findViewById<TimePicker>(R.id.time_picker_alert_view_scheduled)
@@ -80,7 +77,7 @@ class NotificationsFragment : Fragment() {
                 var temp: Int? = null
 
                 if (timeInMinutes == 0) {
-                    notificationsViewModel.addTimeScheduledInDb(tempEvent.idDb, 0)
+                    planningViewModel.addTimeScheduledInDb(tempEvent.idDb, 0)
                     dialog.dismiss()
                 } else {
                     when {
@@ -92,15 +89,15 @@ class NotificationsFragment : Fragment() {
                             .show()
                     }
                     temp?.let {
-                        if (it > notificationsViewModel.totalTimeMonth) {
+                        if (it > planningViewModel.totalTimeMonth) {
                             Toast.makeText(
                                 context,
                                 getString(R.string.alert_exceeding_time) +
-                                        notificationsViewModel.totalTimeMonth.parseTimeFromMinutes(),
+                                        planningViewModel.totalTimeMonth.parseTimeFromMinutes(),
                                 Toast.LENGTH_SHORT
                             ).show()
                         } else {
-                            notificationsViewModel.addTimeScheduledInDb(tempEvent.idDb, it)
+                            planningViewModel.addTimeScheduledInDb(tempEvent.idDb, it)
                             dialog.dismiss()
                         }
                     }
