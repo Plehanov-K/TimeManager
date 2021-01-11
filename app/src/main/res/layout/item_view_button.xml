@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+
+        <import type="android.view.View" />
+
+        <import type="android.graphics.Color" />
+
+        <variable
+            name="params"
+            type="com.example.shared.data.entity.event.EventParamsUi" />
+
+        <variable
+            name="spent"
+            type="com.example.shared.data.entity.event.EventTodayUi" />
+
+        <variable
+            name="scheduled"
+            type="com.example.shared.data.entity.event.EventScheduledTimeUi" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@{params.name}"
+            android:singleLine="true"
+            android:layout_marginEnd="4dp"
+            android:layout_marginStart="4dp"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+          />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_margin="2dp"
+            app:text_time_binding="@{scheduled.timeSchedule}"
+            android:textSize="@dimen/event_time_text_size"
+            android:gravity="center"/>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <LinearLayout
+                android:layout_width="@dimen/button_size"
+                android:layout_height="@dimen/button_size"
+                android:background="@drawable/item_background_layout_button_shape"
+                android:backgroundTint="@{Color.parseColor(params.color)}" />
+
+            <LinearLayout
+                android:layout_width="@dimen/button_size"
+                android:layout_height="@dimen/button_size"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="@dimen/button_size"
+                    android:layout_height="0dp"
+                    android:layout_weight="0"
+                    android:background="@drawable/item_front_layout_button_shape"
+                    app:mutableLiveData="@{scheduled.timeSchedule}"
+                    app:mutableLiveData2="@{spent.timeSpent}"/>
+
+                <LinearLayout
+                    android:layout_width="@dimen/button_size"
+                    android:layout_height="0dp"
+                    android:layout_weight="0"
+                    app:layout_weight_binding="@{spent.timeSpent}" />
+
+            </LinearLayout>
+
+
+            <ImageButton
+                android:layout_width="@dimen/button_size"
+                android:layout_height="@dimen/button_size"
+                android:background="@drawable/item_button_shape"
+                android:backgroundTint="@{Color.parseColor(params.color)}"
+                android:onClick="onClickButton"
+                app:id_binding="@{params.id}" />
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            app:text_time_binding="@{spent.timeSpent}"
+            android:textColor="@{Color.parseColor(params.color)}"
+            android:textSize="@dimen/event_time_text_size"/>
+
+
+    </LinearLayout>
+</layout>

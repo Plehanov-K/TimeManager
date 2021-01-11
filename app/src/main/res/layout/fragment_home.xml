@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="java.util.List" />
+
+        <variable
+            name="viewModel"
+            type="com.example.timemanager.ui.home.HomeViewModel" />
+
+        <variable
+            name="list"
+            type="List&lt;com.example.shared.data.entity.event.EventParamsUi&gt;" />
+
+        <variable
+            name="time_spent_list"
+            type="List&lt;com.example.shared.data.entity.event.EventTodayUi&gt;" />
+
+        <variable
+            name="time_scheduled_list"
+            type="List&lt;com.example.shared.data.entity.event.EventScheduledTimeUi&gt;" />
+
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/main"
+        tools:context=".ui.home.HomeFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+           app:layout_constraintBottom_toBottomOf="parent"
+            bind:layout_constraintEnd_toEndOf="parent"
+            bind:layout_constraintStart_toStartOf="parent"
+            bind:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <include
+                    layout="@layout/item_view_button"
+                    bind:params="@{list[0]}"
+                    bind:spent="@{time_spent_list[0]}"
+                    bind:scheduled="@{time_scheduled_list[0]}"/>
+
+
+                <include
+                    layout="@layout/item_view_button"
+                    bind:params="@{list[1]}"
+                    bind:spent="@{time_spent_list[1]}"
+                    bind:scheduled="@{time_scheduled_list[1]}"/>
+
+
+                <include
+                    layout="@layout/item_view_button"
+                    bind:params="@{list[2]}"
+                    bind:spent="@{time_spent_list[2]}"
+                    bind:scheduled="@{time_scheduled_list[2]}"/>
+
+
+                <include
+                    layout="@layout/item_view_button"
+                    bind:params="@{list[3]}"
+                    bind:spent="@{time_spent_list[3]}"
+                    bind:scheduled="@{time_scheduled_list[3]}"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+
+                    <include
+                        layout="@layout/item_view_button"
+                        bind:params="@{list[11]}"
+                        bind:spent="@{time_spent_list[11]}"
+                        bind:scheduled="@{time_scheduled_list[11]}"/>
+
+                    <include
+                        layout="@layout/item_view_button"
+                        bind:params="@{list[10]}"
+                        bind:spent="@{time_spent_list[10]}"
+                        bind:scheduled="@{time_scheduled_list[10]}"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.3"
+                    android:gravity="center">
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical">
+
+                        <com.yangp.ypwaveview.YPWaveView
+                            android:id="@+id/waveView"
+                            android:layout_width="170dp"
+                            android:layout_height="170dp"
+                            app:shapePadding="3.5dp"
+                            android:layout_gravity="center"
+                            app:animatorEnable="true"
+                            app:behideColor="@color/center"
+                            app:borderWidthSize="0dp"
+                            app:frontColor="@color/center_transporent"
+                            app:max="1440"
+                            app:progress="@{viewModel.dayTimeInMinutes}"
+                            app:shapeType="circle"
+                            app:strong="30"
+                            app:textHidden="true" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:textSize="40sp"
+                            app:text_time_binding_LiveData="@{viewModel.dayTimeInMinutes}" />
+
+                        <com.github.mikephil.charting.charts.PieChart
+                            android:id="@+id/chart"
+                            android:layout_marginBottom="0.5dp"
+                            android:layout_marginEnd="0.6dp"
+                            android:layout_width="210dp"
+                            android:layout_gravity="center"
+                            android:layout_height="210dp" />
+
+                    </FrameLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+
+                    <include
+                        layout="@layout/item_view_button"
+                        bind:params="@{list[4]}"
+                        bind:spent="@{time_spent_list[4]}"
+                        bind:scheduled="@{time_scheduled_list[4]}"/>
+
+
+                    <include
+                        layout="@layout/item_view_button"
+                        bind:params="@{list[5]}"
+                        bind:spent="@{time_spent_list[5]}"
+                        bind:scheduled="@{time_scheduled_list[5]}"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+
+                <include
+                    layout="@layout/item_view_button"
+                    bind:params="@{list[9]}"
+                    bind:spent="@{time_spent_list[9]}"
+                    bind:scheduled="@{time_scheduled_list[9]}"/>
+
+
+                <include
+                    layout="@layout/item_view_button"
+                    bind:params="@{list[8]}"
+                    bind:spent="@{time_spent_list[8]}"
+                    bind:scheduled="@{time_scheduled_list[8]}"/>
+
+
+                <include
+                    layout="@layout/item_view_button"
+                    bind:params="@{list[7]}"
+                    bind:spent="@{time_spent_list[7]}"
+                    bind:scheduled="@{time_scheduled_list[7]}"/>
+
+
+                <include
+                    layout="@layout/item_view_button"
+                    bind:params="@{list[6]}"
+                    bind:spent="@{time_spent_list[6]}"
+                    bind:scheduled="@{time_scheduled_list[6]}"/>
+            </LinearLayout>
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

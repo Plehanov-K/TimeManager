@@ -1,0 +1,4 @@
+include ':shared'
+include ':shared2314'
+include ':app'
+rootProject.name = "TimeManager"

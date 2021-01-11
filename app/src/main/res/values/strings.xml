@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">TimeManager</string>
+    <string name="title_activity_category">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_chart">Chart</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="buttonCancel">Cancel</string>
+    <string name="buttonOk">Ok</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+    <string name="free_time">Free time \</string>
+    <string name="delete_event">Delete event ?</string>
+    <string name="change_event">Change event ?</string>
+    <string name="alert_exceeding_time">You cannot select more than \</string>
+    <string name="total_time">Total time</string>
+
+    <string name="choose_color">Choose color</string>
+    <string name="enter_new_name">Enter new name</string>
+    <string name="alert_ranget_not_select">Range is not selected</string>
+</resources>
